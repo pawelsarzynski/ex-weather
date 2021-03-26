@@ -1,0 +1,19 @@
+{
+  "name": "weather-app",
+  "version": "1.0.0",
+  "repository": "https://github.com/pawelsarzynski/ex-weather.git",
+  "author": "PS",
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "server",
+      "client",
+      "shared"
+    ]
+  },
+  "scripts": {
+    "be": "yarn workspace server",
+    "fe": "yarn workspace client"
+  },
+  "license": "MIT"
+}

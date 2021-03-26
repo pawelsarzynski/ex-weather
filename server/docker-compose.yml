@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  api:
+    container_name: api
+    restart: unless-stopped
+    build:
+      context: .
+      target: development
+      dockerfile: Dockerfile
+      args:
+        port: ${SERVER_PORT:?Port is not set}
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - ${SERVER_PORT}:${SERVER_PORT}
+      - 9229:9229
+    command: yarn start:dev
+    env_file:
+      - .env
+    networks:
+      - webnet
+    depends_on:
+      - redis
+  redis:
+    container_name: redis
+    image: redis:5
+    ports:
+      - 6379:6379
+    networks:
+      - webnet
+networks:
+  webnet:
